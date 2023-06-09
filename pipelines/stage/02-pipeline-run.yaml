@@ -26,4 +26,16 @@ spec:
             pipelineRef:
               name: deploy-to-stage
             timeout: 1h0m0s
+            workspaces:
+              - name: app-source
+                volumeClaimTemplate:
+                  metadata:
+                    creationTimestamp: null
+                  spec:
+                    accessModes:
+                      - ReadWriteOnce
+                    resources:
+                      requests:
+                        storage: 1Gi
+                    volumeMode: Filesystem
           EOF

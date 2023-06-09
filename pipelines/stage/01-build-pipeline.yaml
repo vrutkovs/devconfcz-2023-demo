@@ -8,8 +8,36 @@ spec:
     pushes it to a registry and deploys this image from manifests
   workspaces:
   - name: app-source
-  - name: dockerconfig-ws
   tasks:
+  - name: fetch-source
+    taskRef:
+      kind: ClusterTask
+      name: git-clone
+    workspaces:
+    - name: output
+      workspace: app-source
+    params:
+    - name: url
+      value: https://github.com/vrutkovs/k8s-podhunt
+    - name: revision
+      value: tekton
+  - name: manifests
+    params:
+      - name: SCRIPT
+        value: |
+          cd $(workspaces.manifest-dir.path)/manifests/overlays/stage
+          NAMESPACE="$(context.pipelineRun.namespace)"
+          echo "Namespace: ${NAMESPACE}"
+          echo "Deploying commit $(tasks.fetch-source.results.commit)"
+          oc apply -k .
+    runAfter:
+      - fetch-source
+    taskRef:
+      kind: ClusterTask
+      name: openshift-client
+    workspaces:
+      - name: manifest-dir
+        workspace: app-source
   - name: build-ui-src
     taskRef:
       kind: ClusterTask
@@ -17,6 +45,8 @@ spec:
     params:
     - name: SCRIPT
       value: oc start-build hunt-ui-src --wait
+    runAfter:
+      - manifests
   - name: build-ui-bin
     taskRef:
       kind: ClusterTask
@@ -33,6 +63,8 @@ spec:
     params:
     - name: SCRIPT
       value: oc start-build hunt-backend-src --wait
+    runAfter:
+      - manifests
   - name: build-backend-bin
     taskRef:
       kind: ClusterTask
