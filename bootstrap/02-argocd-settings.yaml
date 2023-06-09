@@ -1,0 +1,82 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: openshift-gitops
+  namespace: openshift-gitops
+  labels:
+    app.kubernetes.io/instance: bootstrap
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  applicationSet: {}
+  server:
+    route:
+      annotations: {}
+      enabled: true
+      path: /
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: reencrypt
+      wildcardPolicy: None
+    insecure: false
+    resources: {}
+  sso:
+    dex:
+      openShiftOAuth: true
+  rbac:
+    defaultPolicy: 'role:readonly'
+    policy: |
+      g, system:cluster-admins, role:admin
+    scopes: '[groups]'
+  resourceCustomizations: |
+    route.openshift.io/Route:
+      ignoreDifferences: |
+        jsonPointers:
+        - /spec/host
+  resourceExclusions: |
+    - apiGroups:
+      - tekton.dev
+      clusters:
+      - '*'
+      kinds:
+      - PipelineRun
+      - TaskRun
+  extraConfig:
+    resource.customizations: |
+      operators.coreos.com/Subscription:
+        health.lua: |
+          hs = {}
+          hs.status = "Progressing"
+          hs.message = ""
+          if obj.status ~= nil then
+            if obj.status.state ~= nil then
+              if obj.status.state == "AtLatestKnown" then
+                hs.message = obj.status.state .. " - " .. obj.status.currentCSV
+                hs.status = "Healthy"
+              end
+            end
+          end
+          return hs
+      cert-manager.io/Certificate:
+        health.lua: |
+          hs = {}
+          if obj.status ~= nil then
+            if obj.status.conditions ~= nil then
+              for i, condition in ipairs(obj.status.conditions) do
+                if condition.type == "Ready" and condition.status == "False" then
+                  hs.status = "Degraded"
+                  hs.message = condition.message
+                  return hs
+                end
+                if condition.type == "Ready" and condition.status == "True" then
+                  hs.status = "Healthy"
+                  hs.message = condition.message
+                  return hs
+                end
+              end
+            end
+          end
+
+          hs.status = "Progressing"
+          hs.message = "Waiting for certificate"
+          return hs

@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: workload-prod
+  namespace: openshift-gitops
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: prod-cluster
+        requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: 'workload-prod-{{name}}'
+    spec:
+      destination:
+        namespace: workload
+        server: '{{server}}'
+      project: default
+      source:
+        path: 'manifests/overlays/{{name}}/'
+        repoURL: https://github.com/vrutkovs/color-demo
+        targetRevision: 88cc40f
+        kustomize:
+          images:
+          - ghcr.io/vrutkovs/color-demo:f7f34dba445a6d8c3c82dc4a2772ab16a511eb42
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - PruneLast=true
+          - Validate=false
+          - Replace=false
+          - PrunePropagationPolicy=background

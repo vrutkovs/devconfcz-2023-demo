@@ -1,0 +1,58 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: stage
+  namespace: clusters
+  annotations:
+    policy.open-cluster-management.io/categories: SC System and Communications Protection
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/controls: SC-28 Protection Of Information At
+      Rest, SC-6 Resource Availability, SC-8 Transmission Confidentiality and
+      Integrity
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: CertificatePolicy
+        metadata:
+          name: policy-certificate
+        spec:
+          namespaceSelector:
+            include:
+              - openshift-ingress
+            exclude:
+              - kube-*
+          remediationAction: inform
+          severity: low
+          minimumDuration: 300h
+  remediationAction: inform
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: stage-policy-placement
+  namespace: clusters
+spec:
+  clusterSelector:
+    matchExpressions:
+      - key: cluster.open-cluster-management.io/clusterset
+        operator: In
+        values:
+          - stage
+          - prod
+  clusterConditions: []
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: stage-policy-placement
+  namespace: clusters
+placementRef:
+  name: stage-policy-placement
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: stage
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

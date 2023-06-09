@@ -1,0 +1,136 @@
+---
+apiVersion: hypershift.openshift.io/v1beta1
+kind: HostedCluster
+metadata:
+  name: vrutkovs-stage
+  namespace: clusters
+  annotations:
+    cluster.open-cluster-management.io/hypershiftdeployment: local-cluster/vrutkovs-stage
+    cluster.open-cluster-management.io/managedcluster-name: vrutkovs-stage
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - hypershift.openshift.io/finalizer
+    - hypershift.io/aws-oidc-discovery
+  labels:
+    hypershift.openshift.io/auto-created-for-infra: vrutkovs-stage
+spec:
+  fips: false
+  release:
+    image: 'quay.io/openshift-release-dev/ocp-release:4.12.12-x86_64'
+  dns:
+    baseDomain: devcluster.openshift.com
+  controllerAvailabilityPolicy: SingleReplica
+  infraID: vrutkovs-stage
+  etcd:
+    managed:
+      storage:
+        persistentVolume:
+          size: 4Gi
+        type: PersistentVolume
+    managementType: Managed
+  infrastructureAvailabilityPolicy: SingleReplica
+  platform:
+    aws:
+      cloudProviderConfig:
+        zone: us-east-2a
+      endpointAccess: Public
+      region: us-east-2
+      resourceTags:
+        - key: kubernetes.io/cluster/vrutkovs-stage
+          value: owned
+    type: AWS
+  secretEncryption:
+    aescbc:
+      activeKey:
+        name: vrutkovs-stage-etcd-encryption-key
+    type: aescbc
+  networking:
+    clusterNetwork:
+      - cidr: 10.132.0.0/14
+    machineNetwork:
+      - cidr: 10.0.0.0/16
+    networkType: OVNKubernetes
+    serviceNetwork:
+      - cidr: 172.31.0.0/16
+  clusterID: bac770e1-02bd-420a-9434-6e16509bb378
+  pullSecret:
+    name: vrutkovs-stage-pull-secret
+  issuerURL: 'https://vrutkovs-hypershift-demo.s3.us-east-1.amazonaws.com/vrutkovs-stage'
+  sshKey:
+    name: vrutkovs-stage-ssh-key
+  autoscaling: {}
+  olmCatalogPlacement: management
+  services:
+    - service: APIServer
+      servicePublishingStrategy:
+        type: LoadBalancer
+    - service: OAuthServer
+      servicePublishingStrategy:
+        type: Route
+    - service: Konnectivity
+      servicePublishingStrategy:
+        type: Route
+    - service: Ignition
+      servicePublishingStrategy:
+        type: Route
+    - service: OVNSbDb
+      servicePublishingStrategy:
+        type: Route
+---
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  name: vrutkovs-stage
+  labels:
+    cluster.open-cluster-management.io/clusterset: stage
+  annotations:
+    import.open-cluster-management.io/hosting-cluster-name: local-cluster
+    import.open-cluster-management.io/klusterlet-deploy-mode: Hosted
+    open-cluster-management/created-via: other
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  hubAcceptsClient: true
+  leaseDurationSeconds: 60
+---
+apiVersion: agent.open-cluster-management.io/v1
+kind: KlusterletAddonConfig
+metadata:
+  name: vrutkovs-stage
+  namespace: vrutkovs-stage
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  clusterName: vrutkovs-stage
+  clusterNamespace: vrutkovs-stage
+  clusterLabels:
+    cloud: auto-detect
+    vendor: auto-detect
+  applicationManager:
+    enabled: true
+  certPolicyController:
+    enabled: true
+  iamPolicyController:
+    enabled: true
+  policyController:
+    enabled: true
+  searchCollector:
+    enabled: false
+---
+apiVersion: internal.open-cluster-management.io/v1beta1
+kind: ManagedClusterInfo
+metadata:
+  name: vrutkovs-stage
+  namespace: vrutkovs-stage
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec: {}
+---
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSet
+metadata:
+  name: stage
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  clusterSelector:
+    selectorType: ExclusiveClusterSetLabel
