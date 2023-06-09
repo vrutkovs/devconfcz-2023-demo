@@ -12,12 +12,14 @@ spec:
   tasks:
   - name: build-ui-src
     taskRef:
+      kind: ClusterTask
       name: openshift-client
     params:
     - name: ARGS
       value: start-build hunt-ui-src --wait
   - name: build-ui-bin
     taskRef:
+      kind: ClusterTask
       name: openshift-client
     params:
     - name: ARGS
@@ -26,12 +28,14 @@ spec:
     - build-ui-src
   - name: build-backend-src
     taskRef:
+      kind: ClusterTask
       name: openshift-client
     params:
     - name: ARGS
       value: start-build hunt-backend-src --wait
   - name: build-backend-bin
     taskRef:
+      kind: ClusterTask
       name: openshift-client
     params:
     - name: ARGS
@@ -40,6 +44,7 @@ spec:
     - build-backend-src
   - name: wait-for-ui-rollout
     taskRef:
+      kind: ClusterTask
       name: openshift-client
     params:
     - name: ARGS
@@ -48,6 +53,7 @@ spec:
     - build-ui-bin
   - name: wait-for-backend-rollout
     taskRef:
+      kind: ClusterTask
       name: openshift-client
     params:
     - name: ARGS
