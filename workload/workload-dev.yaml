@@ -10,7 +10,7 @@ spec:
         - pullRequest:
             github:
               owner: vrutkovs
-              repo: color-demo
+              repo: podhunt-demo
               labels:
               - preview
               tokenRef:

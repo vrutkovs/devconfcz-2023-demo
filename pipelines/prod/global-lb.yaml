@@ -1,14 +1,14 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: colors-global
+  name: podhunt-global
   labels:
-    app: colors
+    app: podhunt
 spec:
   host: devconf-vrutkovs-demo.devcluster.openshift.com
   to:
     kind: Service
-    name: colors
+    name: podhunt
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect

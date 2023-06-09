@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: color-demo
+  name: podhunt-demo
 spec:
   replicas: 5
   strategy:
@@ -21,8 +21,8 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: colors
+      app: podhunt
   workloadRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: colors
+    name: podhunt

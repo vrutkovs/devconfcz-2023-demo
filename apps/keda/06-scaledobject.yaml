@@ -10,7 +10,7 @@ spec:
   scaleTargetRef:
     apiVersion: argoproj.io/v1alpha1
     kind: Rollout
-    name: color-demo
+    name: podhunt-demo
   maxReplicaCount: 10
   minReplicaCount: 2
   pollingInterval: 30

@@ -6,7 +6,7 @@ patchesJson6902:
   target:
     group: apps
     kind: Deployment
-    name: colors
+    name: podhunt
     version: v1
 resources:
 - rollout.yaml

@@ -1,9 +1,9 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: colors
+  name: podhunt
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: colors
+      app: podhunt
