@@ -21,7 +21,7 @@ spec:
       project: default
       source:
         path: 'apps/tekton'
-        repoURL: https://github.com/vrutkovs/kcd-cz-demo
+        repoURL: https://github.com/vrutkovs/devconfcz-2023-demo
         targetRevision: HEAD
         directory:
           recurse: true

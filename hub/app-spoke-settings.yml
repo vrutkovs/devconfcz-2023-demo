@@ -14,6 +14,6 @@ spec:
     directory:
       recurse: true
     path: apps/spoke-clusters
-    repoURL: 'https://github.com/vrutkovs/kcd-cz-demo'
+    repoURL: 'https://github.com/vrutkovs/devconfcz-2023-demo'
     targetRevision: HEAD
   syncPolicy: {}
