@@ -10,53 +10,47 @@ spec:
   - name: app-source
   - name: dockerconfig-ws
   tasks:
-  - name: fetch-source
+  - name: build-ui-src
     taskRef:
-      kind: ClusterTask
-      name: git-clone
-    workspaces:
-    - name: output
-      workspace: app-source
-    params:
-    - name: url
-      value: https://github.com/vrutkovs/k8s-podhunt
-    - name: revision
-      value: main
-  - name: build-image
-    taskRef:
-      kind: ClusterTask
-      name: buildah
-    runAfter:
-      - fetch-source
-    params:
-      - name: IMAGE
-        value: "ghcr.io/vrutkovs/color-demo:$(tasks.fetch-source.results.commit)"
-      - name: CONTEXT
-        value: "$(workspaces.source.path)"
-    workspaces:
-      - name: source
-        workspace: app-source
-      - name: dockerconfig
-        workspace: dockerconfig-ws
-  - name: deploy
-    params:
-      - name: SCRIPT
-        value: |
-          cd $(workspaces.manifest-dir.path)/manifests/overlays/stage
-          NAMESPACE="$(context.pipelineRun.namespace)"
-          echo "Namespace: ${NAMESPACE}"
-          echo "Deploying commit $(tasks.fetch-source.results.commit)"
-          echo "images:" >> kustomization.yaml
-          echo "- name: ghcr.io/vrutkovs/color-demo:latest" >> kustomization.yaml
-          echo "  newName: ghcr.io/vrutkovs/color-demo" >> kustomization.yaml
-          echo "  newTag: $(tasks.fetch-source.results.commit)" >> kustomization.yaml
-          oc apply -k .
-          oc rollout status deploy/colors -w
-    runAfter:
-      - build-image
-    taskRef:
-      kind: ClusterTask
       name: openshift-client
-    workspaces:
-      - name: manifest-dir
-        workspace: app-source
+    params:
+    - name: ARGS
+      value: start-build hunt-ui-src --wait
+  - name: build-ui-bin
+    taskRef:
+      name: openshift-client
+    params:
+    - name: ARGS
+      value: start-build hunt-ui-bin --wait
+    runAfter:
+    - build-ui-src
+  - name: build-backend-src
+    taskRef:
+      name: openshift-client
+    params:
+    - name: ARGS
+      value: start-build hunt-backend-src --wait
+  - name: build-backend-bin
+    taskRef:
+      name: openshift-client
+    params:
+    - name: ARGS
+      value: start-build hunt-backend-bin --wait
+    runAfter:
+    - build-backend-src
+  - name: wait-for-ui-rollout
+    taskRef:
+      name: openshift-client
+    params:
+    - name: ARGS
+      value: rollout status dc/hunt-ui
+    runAfter:
+    - build-ui-bin
+  - name: wait-for-backend-rollout
+    taskRef:
+      name: openshift-client
+    params:
+    - name: ARGS
+      value: rollout status dc/hunt-backend
+    runAfter:
+    - build-backend-bin
