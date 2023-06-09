@@ -5,7 +5,7 @@ metadata:
   labels:
     app: colors
 spec:
-  host: kcd-vrutkovs-demo.devcluster.openshift.com
+  host: devconf-vrutkovs-demo.devcluster.openshift.com
   to:
     kind: Service
     name: colors

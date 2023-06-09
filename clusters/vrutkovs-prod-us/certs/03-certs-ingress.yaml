@@ -21,7 +21,7 @@ spec:
     - client auth
   dnsNames:
     - '*.apps.vrutkovs-prod-us.devcluster.openshift.com'
-    - 'kcd-vrutkovs-demo.devcluster.openshift.com'
+    - 'devconf-vrutkovs-demo.devcluster.openshift.com'
   issuerRef:
     name: letsencrypt-prod-cluster-issuer
     kind: ClusterIssuer

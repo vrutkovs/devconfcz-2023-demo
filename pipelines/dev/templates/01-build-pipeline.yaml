@@ -12,7 +12,7 @@ spec:
   params:
   - name: repo-url
     type: string
-    default: https://github.com/vrutkovs/color-demo
+    default: https://github.com/vrutkovs/k8s-podhunt
   - name: repo-revision
     type: string
     default: main

@@ -21,11 +21,11 @@ spec:
       project: default
       source:
         path: 'manifests/overlays/{{name}}/'
-        repoURL: https://github.com/vrutkovs/color-demo
-        targetRevision: 88cc40f
+        repoURL: https://github.com/vrutkovs/k8s-podhunt
+        targetRevision: c4fdc79
         kustomize:
           images:
-          - ghcr.io/vrutkovs/color-demo:f7f34dba445a6d8c3c82dc4a2772ab16a511eb42
+          - ghcr.io/vrutkovs/k8s-podhunt:1bf00c79e9aaff8d46b3cb0d812bb0b356ae773c
       syncPolicy:
         automated:
           prune: true

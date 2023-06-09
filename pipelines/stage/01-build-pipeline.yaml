@@ -19,7 +19,7 @@ spec:
       workspace: app-source
     params:
     - name: url
-      value: https://github.com/vrutkovs/color-demo
+      value: https://github.com/vrutkovs/k8s-podhunt
     - name: revision
       value: main
   - name: build-image

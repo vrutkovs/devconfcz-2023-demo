@@ -21,7 +21,7 @@ spec:
       project: default
       source:
         path: manifests/pipeline
-        repoURL: https://github.com/vrutkovs/color-demo
+        repoURL: https://github.com/vrutkovs/k8s-podhunt
         targetRevision: HEAD
       syncPolicy:
         automated:

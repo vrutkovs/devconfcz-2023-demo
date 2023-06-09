@@ -38,7 +38,7 @@ spec:
         helm:
           parameters:
            - name: repo_url
-             value: 'https://github.com/vrutkovs/color-demo'
+             value: 'https://github.com/vrutkovs/k8s-podhunt'
            - name: repo_sha
              value: '{{head_sha}}'
       syncPolicy:
