@@ -21,6 +21,37 @@ spec:
       - key: node-role.kubernetes.io/infra
         effect: NoSchedule
         value: reserved
+      providerSpec:
+        value:
+          spotMarketOptions: {}
+---
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  name: vrutkovs-demo-fbx4c-worker-b
+  namespace: openshift-machine-api
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  template:
+    spec:
+      providerSpec:
+        value:
+          spotMarketOptions: {}
+---
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  name: vrutkovs-demo-fbx4c-worker-c
+  namespace: openshift-machine-api
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  template:
+    spec:
+      providerSpec:
+        value:
+          spotMarketOptions: {}
 ---
 apiVersion: autoscaling.openshift.io/v1beta1
 kind: MachineAutoscaler
