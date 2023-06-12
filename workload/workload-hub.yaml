@@ -15,7 +15,7 @@ spec:
   sources:
     - path: 'manifests/overlays/production/'
       repoURL: https://github.com/vrutkovs/k8s-podhunt
-      targetRevision: b10faab
+      targetRevision: 34efd04
       kustomize:
         images:
         - ghcr.io/vrutkovs/k8s-podhunt-ui:671d5be30ea2a095f772560f4bdc1f01315704e9
