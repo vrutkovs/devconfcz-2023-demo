@@ -82,4 +82,4 @@ spec:
     - name: SCRIPT
       value: oc rollout status dc/hunt-backend
     runAfter:
-    - build-backend-src
+    - build-backend
