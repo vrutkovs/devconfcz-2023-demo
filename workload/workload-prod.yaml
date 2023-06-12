@@ -25,8 +25,8 @@ spec:
         targetRevision: 6c9dcad
         kustomize:
           images:
-          - ghcr.io/vrutkovs/k8s-podhunt:ui-96f772881766c07ed7e2dcbb07ddcb4a84d42ac3
-          - ghcr.io/vrutkovs/k8s-podhunt:backend-96f772881766c07ed7e2dcbb07ddcb4a84d42ac3
+          - ghcr.io/vrutkovs/k8s-podhunt-ui:96f772881766c07ed7e2dcbb07ddcb4a84d42ac3
+          - ghcr.io/vrutkovs/k8s-podhunt-backend:96f772881766c07ed7e2dcbb07ddcb4a84d42ac3
       syncPolicy:
         automated:
           prune: true
