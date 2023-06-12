@@ -1,14 +1,29 @@
+---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: podhunt-global
-  labels:
-    app: podhunt
+  name: global-backend
+spec:
+  host: devconf-vrutkovs-demo.devcluster.openshift.com
+  path: /kill
+  to:
+    kind: Service
+    name: backend
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  port:
+    targetPort: 8080
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: global-ui
 spec:
   host: devconf-vrutkovs-demo.devcluster.openshift.com
   to:
     kind: Service
-    name: podhunt
+    name: ui
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
