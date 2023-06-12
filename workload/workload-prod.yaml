@@ -19,14 +19,17 @@ spec:
         namespace: workload
         server: '{{server}}'
       project: default
-      source:
-        path: 'manifests/overlays/{{name}}/'
-        repoURL: https://github.com/vrutkovs/k8s-podhunt
-        targetRevision: 39f7b7c
-        kustomize:
-          images:
-          - ghcr.io/vrutkovs/k8s-podhunt-ui:671d5be30ea2a095f772560f4bdc1f01315704e9
-          - ghcr.io/vrutkovs/k8s-podhunt-backend:671d5be30ea2a095f772560f4bdc1f01315704e9
+      sources:
+        - path: 'manifests/overlays/{{name}}/'
+          repoURL: https://github.com/vrutkovs/k8s-podhunt
+          targetRevision: 39f7b7c
+          kustomize:
+            images:
+            - ghcr.io/vrutkovs/k8s-podhunt-ui:671d5be30ea2a095f772560f4bdc1f01315704e9
+            - ghcr.io/vrutkovs/k8s-podhunt-backend:671d5be30ea2a095f772560f4bdc1f01315704e9
+        - path: pipelines/prod
+          repoURL: 'https://github.com/vrutkovs/devconfcz-2023-demo'
+          targetRevision: HEAD
       syncPolicy:
         automated:
           prune: true
