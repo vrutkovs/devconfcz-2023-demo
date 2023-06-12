@@ -10,7 +10,7 @@ spec:
         - pullRequest:
             github:
               owner: vrutkovs
-              repo: podhunt-demo
+              repo: k8s-podhunt
               labels:
               - preview
               tokenRef:
