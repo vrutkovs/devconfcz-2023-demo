@@ -43,4 +43,6 @@ spec:
                       requests:
                         storage: 1Gi
                     volumeMode: Filesystem
+              - name: images-url
+                emptyDir: {}
           EOF

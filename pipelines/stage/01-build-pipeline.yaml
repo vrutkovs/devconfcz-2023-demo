@@ -8,6 +8,7 @@ spec:
     pushes it to a registry and deploys this image from manifests
   workspaces:
   - name: app-source
+  - name: images-url
   tasks:
   - name: fetch-source
     taskRef:
@@ -94,6 +95,9 @@ spec:
       value: ghcr.io/vrutkovs/k8s-podhunt:ui-$(tasks.fetch-source.results.commit)
     runAfter:
     - wait-for-ui-rollout
+    workspaces:
+    - name: images-url
+      workspace: images-url
   - name: push-backend-to-ghcr
     taskRef:
       kind: ClusterTask
@@ -105,3 +109,6 @@ spec:
       value: ghcr.io/vrutkovs/k8s-podhunt:backend-$(tasks.fetch-source.results.commit)
     runAfter:
     - wait-for-backend-rollout
+    workspaces:
+    - name: images-url
+      workspace: images-url
