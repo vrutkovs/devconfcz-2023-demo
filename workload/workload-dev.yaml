@@ -25,10 +25,10 @@ spec:
             requeueAfterSeconds: 180
   template:
     metadata:
-      name: 'workload-dev-{{branch_slug}}-{{number}}'
+      name: 'workload-dev-{{number}}'
     spec:
       destination:
-        namespace: 'workload-{{branch_slug}}-{{number}}'
+        namespace: 'workload-{{number}}'
         server: '{{server}}'
       project: default
       source:
@@ -36,6 +36,7 @@ spec:
         repoURL: https://github.com/vrutkovs/devconfcz-2023-demo
         targetRevision: HEAD
         helm:
+          releaseName: 'workload-{{number}}'
           parameters:
            - name: repo_url
              value: 'https://github.com/vrutkovs/k8s-podhunt'
