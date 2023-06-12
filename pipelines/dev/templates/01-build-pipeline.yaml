@@ -31,42 +31,111 @@ spec:
       value: $(params.repo-url)
     - name: revision
       value: $(params.repo-revision)
-  - name: build-image
-    taskRef:
-      kind: ClusterTask
-      name: buildah
-    runAfter:
-      - fetch-source
-    params:
-      - name: IMAGE
-        value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/color-demo:latest
-      - name: TLSVERIFY
-        value: 'false'
-      - name: CONTEXT
-        value: $(workspaces.source.path)
-    workspaces:
-      - name: source
-        workspace: app-source
-  - name: deploy
+  - name: manifests
     params:
       - name: SCRIPT
         value: |
-          cd $(workspaces.manifest-dir.path)/manifests/overlays/default
+          cd $(workspaces.manifest-dir.path)/manifests/overlays/stage
           NAMESPACE="$(context.pipelineRun.namespace)"
           echo "Namespace: ${NAMESPACE}"
-          IMAGE_NAME="image-registry.openshift-image-registry.svc:5000/${NAMESPACE}/color-demo"
-          echo "Deploying ${IMAGE_NAME}"
-          echo "images:" >> kustomization.yaml
-          echo "- name: ghcr.io/vrutkovs/color-demo:latest" >> kustomization.yaml
-          echo "  newName: ${IMAGE_NAME}" >> kustomization.yaml
-          echo "  newTag: latest" >> kustomization.yaml
+          echo "Repository": $(params.repo-url)"
+          echo "Commit: $(tasks.fetch-source.results.commit)"
+          cat <<EOF > kustomization.yaml
+          patchesJson6902:
+          - patch: |-
+              - op: replace
+                path: /spec/host
+                value: duckhunt-${NAMESPACE}.apps.vrutkovs-dev.devcluster.openshift.com
+            target:
+              group: route.openshift.io
+              kind: Route
+              name: backend
+              version: v1
+          - patch: |-
+              - op: replace
+                path: /spec/host
+                value: duckhunt-${NAMESPACE}.apps.vrutkovs-dev.devcluster.openshift.com
+            target:
+              group: route.openshift.io
+              kind: Route
+              name: ui
+              version: v1
+          - patch: |-
+              - op: replace
+                path: /spec/source/git/uri
+                value: "$(params.repo-url)"
+              - op: replace
+                path: /spec/source/git/ref
+                value: "$(tasks.fetch-source.results.commit)"
+            target:
+              group: build.openshift.io
+              kind: BuildConfig
+              name: hunt-ui-src
+              version: v1
+          - patch: |-
+              - op: replace
+                path: /spec/source/git/uri
+                value: "$(params.repo-url)"
+              - op: replace
+                path: /spec/source/git/ref
+                value: "$(tasks.fetch-source.results.commit)"
+            target:
+              group: build.openshift.io
+              kind: BuildConfig
+              name: hunt-backend-src
+              version: v1
+          EOF
           oc apply -k .
-          oc rollout status deploy/colors -w
     runAfter:
-      - build-image
+      - fetch-source
     taskRef:
       kind: ClusterTask
       name: openshift-client
     workspaces:
       - name: manifest-dir
         workspace: app-source
+  - name: build-ui-src
+    taskRef:
+      kind: ClusterTask
+      name: openshift-client
+    params:
+    - name: SCRIPT
+      value: oc start-build hunt-ui-src --wait
+    runAfter:
+      - manifests
+  - name: build-ui-bin
+    taskRef:
+      kind: ClusterTask
+      name: openshift-client
+    params:
+    - name: SCRIPT
+      value: oc start-build hunt-ui-bin --wait
+    runAfter:
+    - build-ui-src
+  - name: build-backend
+    taskRef:
+      kind: ClusterTask
+      name: openshift-client
+    params:
+    - name: SCRIPT
+      value: oc start-build hunt-backend-src --wait
+    runAfter:
+      - manifests
+  - name: wait-for-ui-rollout
+    taskRef:
+      kind: ClusterTask
+      name: openshift-client
+    params:
+    - name: SCRIPT
+      value: oc rollout status dc/hunt-ui
+    runAfter:
+    - build-ui-bin
+  - name: wait-for-backend-rollout
+    taskRef:
+      kind: ClusterTask
+      name: openshift-client
+    params:
+    - name: SCRIPT
+      value: oc rollout status dc/hunt-backend
+    runAfter:
+    - build-backend
