@@ -90,9 +90,9 @@ spec:
       name: skopeo-copy
     params:
     - name: srcImageURL
-      value: image-registry.openshift-image-registry.svc:5000/workload/hunt-ui:webserver
+      value: docker://image-registry.openshift-image-registry.svc:5000/workload/hunt-ui:webserver
     - name: destImageURL
-      value: ghcr.io/vrutkovs/k8s-podhunt:ui-$(tasks.fetch-source.results.commit)
+      value: docker://ghcr.io/vrutkovs/k8s-podhunt:ui-$(tasks.fetch-source.results.commit)
     runAfter:
     - wait-for-ui-rollout
     workspaces:
@@ -104,9 +104,9 @@ spec:
       name: skopeo-copy
     params:
     - name: srcImageURL
-      value: image-registry.openshift-image-registry.svc:5000/workload/hunt-backend:latest
+      value: docker://image-registry.openshift-image-registry.svc:5000/workload/hunt-backend:latest
     - name: destImageURL
-      value: ghcr.io/vrutkovs/k8s-podhunt:backend-$(tasks.fetch-source.results.commit)
+      value: docker://ghcr.io/vrutkovs/k8s-podhunt:backend-$(tasks.fetch-source.results.commit)
     runAfter:
     - wait-for-backend-rollout
     workspaces:
