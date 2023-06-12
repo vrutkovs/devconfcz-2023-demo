@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
 - rollout.yaml
 - global-lb.yaml
-- pdb.yaml
