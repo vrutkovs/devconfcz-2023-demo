@@ -35,10 +35,10 @@ spec:
     params:
       - name: SCRIPT
         value: |
-          cd $(workspaces.manifest-dir.path)/manifests/overlays/stage
+          cd $(workspaces.manifest-dir.path)/manifests/overlays/dev
           NAMESPACE="$(context.pipelineRun.namespace)"
           echo "Namespace: ${NAMESPACE}"
-          echo "Repository": $(params.repo-url)"
+          echo "Repository: $(params.repo-url)"
           echo "Commit: $(tasks.fetch-source.results.commit)"
           cat <<EOF > kustomization.yaml
           patchesJson6902:
