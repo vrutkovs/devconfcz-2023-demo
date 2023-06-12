@@ -1,9 +1,9 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: podhunt-demo
+  name: podhunt-backend
 spec:
-  replicas: 3
+  replicas: 5
   strategy:
     canary:
       antiAffinity:
