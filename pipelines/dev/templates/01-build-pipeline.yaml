@@ -3,7 +3,6 @@ kind: Pipeline
 metadata:
   name: deploy-preview-from-pr
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   description: |
