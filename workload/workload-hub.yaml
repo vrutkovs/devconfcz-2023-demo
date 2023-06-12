@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: workload
+  namespace: openshift-gitops
+  labels:
+    app.kubernetes.io/instance: bootstrap
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  destination:
+    namespace: workload
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: 'manifests/overlays/hub/'
+    repoURL: https://github.com/vrutkovs/k8s-podhunt
+    targetRevision: 39f7b7c
+    kustomize:
+      images:
+      - ghcr.io/vrutkovs/k8s-podhunt-ui:671d5be30ea2a095f772560f4bdc1f01315704e9
+      - ghcr.io/vrutkovs/k8s-podhunt-backend:671d5be30ea2a095f772560f4bdc1f01315704e9
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+      - Validate=false
+      - Replace=false
+      - PrunePropagationPolicy=background
