@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: workload-prod-rollouts
+  name: workload-prod-customizations
   namespace: openshift-gitops
 spec:
   generators:
@@ -13,7 +13,7 @@ spec:
         requeueAfterSeconds: 180
   template:
     metadata:
-      name: 'workload-prod-{{name}}-rollouts'
+      name: 'workload-prod-{{name}}-customizations'
     spec:
       destination:
         namespace: workload

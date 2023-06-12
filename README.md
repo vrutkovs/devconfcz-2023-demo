@@ -17,6 +17,7 @@
   * [ ] Deployment still has one replica?
 * [x] Run MCE and ArgoCD on infra nodes
 * [ ] Describe what these pieces do
+* [ ] Include hub cluster in Global LB
 * [ ] Collect metrics in Thanos from all clusters
 * [ ] Collect logs from all clusters and show metrics/logs in Grafana
 
