@@ -40,7 +40,7 @@ spec:
           echo "Namespace: ${NAMESPACE}"
           echo "Repository: $(params.repo-url)"
           echo "Commit: $(tasks.fetch-source.results.commit)"
-          cat <<EOF > kustomization.yaml
+          cat <<EOF >> kustomization.yaml
           patchesJson6902:
           - patch: |-
               - op: replace
