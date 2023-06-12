@@ -25,6 +25,11 @@ spec:
           spec:
             pipelineRef:
               name: deploy-to-stage
+            taskRunSpecs:
+              - pipelineTaskName: push-ui-to-ghcr
+                taskServiceAccountName: ghcr-service-account
+              - pipelineTaskName: push-backend-to-ghcr
+                taskServiceAccountName: ghcr-service-account
             timeout: 1h0m0s
             workspaces:
               - name: app-source

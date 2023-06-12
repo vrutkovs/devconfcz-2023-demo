@@ -6,3 +6,5 @@ resources:
 - 02-pipeline-run.yaml
 - 03-pipeline-rbac.yaml
 - 04-ripper-rbac.yaml
+- 05-ghcr-push-serviceaccount.yaml
+- 06-github-secret.yaml
