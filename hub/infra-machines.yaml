@@ -23,7 +23,7 @@ spec:
         value: reserved
       providerSpec:
         value:
-          spotMarketOptions: {}
+          preemptible: true
 ---
 apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
@@ -37,7 +37,7 @@ spec:
     spec:
       providerSpec:
         value:
-          spotMarketOptions: {}
+          preemptible: true
 ---
 apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
@@ -51,7 +51,7 @@ spec:
     spec:
       providerSpec:
         value:
-          spotMarketOptions: {}
+          preemptible: true
 ---
 apiVersion: autoscaling.openshift.io/v1beta1
 kind: MachineAutoscaler
