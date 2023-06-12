@@ -25,10 +25,10 @@ spec:
             requeueAfterSeconds: 180
   template:
     metadata:
-      name: 'workload-dev-{{branch}}-{{number}}'
+      name: 'workload-dev-{{branch_slug}}-{{number}}'
     spec:
       destination:
-        namespace: 'workload-{{branch}}-{{number}}'
+        namespace: 'workload-{{branch_slug}}-{{number}}'
         server: '{{server}}'
       project: default
       source:
