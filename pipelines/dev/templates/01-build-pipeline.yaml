@@ -70,18 +70,6 @@ spec:
             target:
               group: build.openshift.io
               kind: BuildConfig
-              name: hunt-ui-src
-              version: v1
-          - patch: |-
-              - op: replace
-                path: /spec/source/git/uri
-                value: "$(params.repo-url)"
-              - op: replace
-                path: /spec/source/git/ref
-                value: "$(tasks.fetch-source.results.commit)"
-            target:
-              group: build.openshift.io
-              kind: BuildConfig
               name: hunt-backend-src
               version: v1
           EOF
