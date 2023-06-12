@@ -44,7 +44,7 @@ data:
         spec:
           resources:
             requests:
-              storage: 50Gb
+              storage: 50Gi
       nodeSelector:
         node-role.kubernetes.io/infra: ""
       tolerations:
