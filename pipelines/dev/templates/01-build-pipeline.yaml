@@ -76,8 +76,8 @@ spec:
                 path: /spec/replicas
                 value: 1
             target:
-              group: apps.openshift.io
-              kind: DeploymentConfig
+              group: apps
+              kind: Deployment
               name: hunt-backend
               version: v1
           - patch: |-
@@ -85,8 +85,8 @@ spec:
                 path: /spec/host
                 value: 1
             target:
-              group: apps.openshift.io
-              kind: DeploymentConfig
+              group: apps
+              kind: Deployment
               name: hunt-ui
               version: v1
           EOF
@@ -132,7 +132,7 @@ spec:
       name: openshift-client
     params:
     - name: SCRIPT
-      value: oc rollout status dc/hunt-ui
+      value: oc rollout status deployment/hunt-ui
     runAfter:
     - build-ui-bin
   - name: wait-for-backend-rollout
@@ -141,6 +141,6 @@ spec:
       name: openshift-client
     params:
     - name: SCRIPT
-      value: oc rollout status dc/hunt-backend
+      value: oc rollout status deployment/hunt-backend
     runAfter:
     - build-backend

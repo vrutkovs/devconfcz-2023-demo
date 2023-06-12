@@ -72,7 +72,7 @@ spec:
       name: openshift-client
     params:
     - name: SCRIPT
-      value: oc rollout status dc/hunt-ui
+      value: oc rollout status deployment/hunt-ui
     runAfter:
     - build-ui-bin
   - name: wait-for-backend-rollout
@@ -81,7 +81,7 @@ spec:
       name: openshift-client
     params:
     - name: SCRIPT
-      value: oc rollout status dc/hunt-backend
+      value: oc rollout status deployment/hunt-backend
     runAfter:
     - build-backend
   - name: push-ui-to-ghcr
