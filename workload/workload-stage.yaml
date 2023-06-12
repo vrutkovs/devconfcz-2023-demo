@@ -22,7 +22,7 @@ spec:
       source:
         path: manifests/pipeline
         repoURL: https://github.com/vrutkovs/k8s-podhunt
-        targetRevision: tekton
+        targetRevision: master
       syncPolicy:
         automated:
           prune: true

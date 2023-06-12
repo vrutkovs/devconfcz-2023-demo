@@ -20,7 +20,7 @@ spec:
     - name: url
       value: https://github.com/vrutkovs/k8s-podhunt
     - name: revision
-      value: tekton
+      value: master
   - name: manifests
     params:
       - name: SCRIPT
