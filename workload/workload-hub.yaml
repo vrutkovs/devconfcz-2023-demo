@@ -13,9 +13,9 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   sources:
-    - path: 'manifests/overlays/{{name}}/'
+    - path: 'manifests/overlays/production/'
       repoURL: https://github.com/vrutkovs/k8s-podhunt
-      targetRevision: 39f7b7c
+      targetRevision: b10faab
       kustomize:
         images:
         - ghcr.io/vrutkovs/k8s-podhunt-ui:671d5be30ea2a095f772560f4bdc1f01315704e9
