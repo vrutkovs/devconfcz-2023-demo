@@ -87,7 +87,7 @@ spec:
             target:
               group: apps.openshift.io
               kind: DeploymentConfig
-              name: hunt-backend
+              name: hunt-ui
               version: v1
           EOF
           oc apply -k .
