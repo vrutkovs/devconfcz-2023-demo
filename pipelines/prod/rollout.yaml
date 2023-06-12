@@ -3,7 +3,7 @@ kind: Rollout
 metadata:
   name: podhunt-demo
 spec:
-  replicas: 5
+  replicas: 3
   strategy:
     canary:
       antiAffinity:
@@ -21,8 +21,8 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: podhunt
+      deploymentconfig: hunt-backend
   workloadRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: podhunt
+    apiVersion: apps.openshift.io/v1
+    kind: DeploymentConfig
+    name: hunt-backend
