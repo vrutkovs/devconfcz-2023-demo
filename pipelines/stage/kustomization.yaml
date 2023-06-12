@@ -8,3 +8,4 @@ resources:
 - 04-ripper-rbac.yaml
 - 05-ghcr-push-serviceaccount.yaml
 - 06-github-secret.yaml
+- 07-ghcr-push-as-root.yaml
