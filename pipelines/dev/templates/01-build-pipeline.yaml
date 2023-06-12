@@ -71,6 +71,24 @@ spec:
               kind: BuildConfig
               name: hunt-backend-src
               version: v1
+          - patch: |-
+              - op: replace
+                path: /spec/replicas
+                value: 1
+            target:
+              group: apps.openshift.io
+              kind: DeploymentConfig
+              name: hunt-backend
+              version: v1
+          - patch: |-
+              - op: replace
+                path: /spec/host
+                value: 1
+            target:
+              group: apps.openshift.io
+              kind: DeploymentConfig
+              name: hunt-backend
+              version: v1
           EOF
           oc apply -k .
     runAfter:
