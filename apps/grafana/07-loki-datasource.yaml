@@ -8,7 +8,8 @@ spec:
   - name: Loki (Application)
     type: loki
     access: proxy
-    url: https://logging-loki-openshift-logging.apps.vrutkovs-demo.origin-gce.dev.openshift.com/api/logs/v1/application/
+    #url: https://logging-loki-openshift-logging.apps.vrutkovs-demo.origin-gce.dev.openshift.com/api/logs/v1/application/
+    url: https://logging-loki-gateway-http.openshift-logging.svc:8080//api/logs/v1/application/
     jsonData:
       tlsAuthWithCACert: true
     secureJsonData:
