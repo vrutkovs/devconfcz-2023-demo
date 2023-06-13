@@ -1,0 +1,18 @@
+apiVersion: integreatly.org/v1alpha1
+kind: Grafana
+metadata:
+  name: main
+  namespace: grafana-operator
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  config:
+    security:
+      admin_user: admin
+      admin_password: admin
+    auth.anonymous:
+      enabled: true
+  ingress:
+    enabled: true
+    tlsEnabled: true
