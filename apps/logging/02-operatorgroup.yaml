@@ -7,5 +7,3 @@ metadata:
   namespace: openshift-logging
 spec:
   upgradeStrategy: Default
-  targetNamespaces:
-    - openshift-logging

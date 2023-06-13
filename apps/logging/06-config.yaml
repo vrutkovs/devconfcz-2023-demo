@@ -2,7 +2,7 @@ apiVersion: loki.grafana.com/v1
 kind: LokiStack
 metadata:
   name: logging-loki
-  namespace: openshift-operators-redhat
+  namespace: openshift-logging
   annotations:
     argocd.argoproj.io/sync-wave: "5"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
