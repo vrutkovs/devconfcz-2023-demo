@@ -6,7 +6,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
-  replicas: 3
   template:
     metadata:
       labels:
@@ -23,6 +22,7 @@ spec:
         value: reserved
       providerSpec:
         value:
+          machineType: n2-standard-8
           preemptible: true
 ---
 apiVersion: machine.openshift.io/v1beta1
@@ -61,7 +61,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
-  maxReplicas: 5
+  maxReplicas: 7
   minReplicas: 1
   scaleTargetRef:
     apiVersion: machine.openshift.io/v1beta1
