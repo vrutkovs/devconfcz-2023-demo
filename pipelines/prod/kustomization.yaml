@@ -5,3 +5,4 @@ resources:
 - rollout-backend.yaml
 - rollout-ui.yaml
 - global-lb.yaml
+- ripper-rbac.yaml
