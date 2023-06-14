@@ -89,33 +89,37 @@ data:
         access: proxy
         url: https://${GATEWAY_ADDRESS}/api/logs/v1/application/
         jsonData:
-          tlsAuthWithCACert: true
+          httpHeaderName1: Authorization
+          tlsSkipVerify: true
         secureJsonData:
-          tlsCACert: ${GATEWAY_SERVICE_CA}
+          httpHeaderValue1: Bearer sha256~qRGPznie435vASmL66efQFdDfv0D8WqiVKeROi3Ogdw
       - name: Loki (Infrastructure)
         type: loki
         access: proxy
         url: https://${GATEWAY_ADDRESS}/api/logs/v1/infrastructure/
         jsonData:
-          tlsAuthWithCACert: true
+          httpHeaderName1: Authorization
+          tlsSkipVerify: true
         secureJsonData:
-          tlsCACert: ${GATEWAY_SERVICE_CA}
+          httpHeaderValue1: Bearer sha256~qRGPznie435vASmL66efQFdDfv0D8WqiVKeROi3Ogdw
       - name: Loki (Audit)
         type: loki
         access: proxy
         url: https://${GATEWAY_ADDRESS}/api/logs/v1/audit/
         jsonData:
-          tlsAuthWithCACert: true
+          httpHeaderName1: Authorization
+          tlsSkipVerify: true
         secureJsonData:
-          tlsCACert: ${GATEWAY_SERVICE_CA}
+          httpHeaderValue1: Bearer sha256~qRGPznie435vASmL66efQFdDfv0D8WqiVKeROi3Ogdw
       - name: Prometheus
         type: prometheus
         access: proxy
         url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
         jsonData:
-          tlsAuthWithCACert: true
+          httpHeaderName1: Authorization
+          tlsSkipVerify: true
         secureJsonData:
-          tlsCACert: ${GATEWAY_SERVICE_CA}
+          httpHeaderValue1: Bearer sha256~qRGPznie435vASmL66efQFdDfv0D8WqiVKeROi3Ogdw
 kind: ConfigMap
 metadata:
   name: grafana-datasources
@@ -165,11 +169,6 @@ spec:
       - args:
         - -config=/etc/grafana/config.ini
         env:
-        - name: GATEWAY_SERVICE_CA
-          valueFrom:
-            configMapKeyRef:
-              key: service-ca.crt
-              name: openshift-service-ca.crt
         - name: GATEWAY_ADDRESS
           value: logging-loki-gateway-http.openshift-logging.svc:8080
         - name: GF_SECURITY_ADMIN_USER
