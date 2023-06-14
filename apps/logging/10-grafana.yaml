@@ -108,6 +108,14 @@ data:
           tlsAuthWithCACert: true
         secureJsonData:
           tlsCACert: ${GATEWAY_SERVICE_CA}
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+        jsonData:
+          tlsAuthWithCACert: true
+        secureJsonData:
+          tlsCACert: ${GATEWAY_SERVICE_CA}
 kind: ConfigMap
 metadata:
   name: grafana-datasources
