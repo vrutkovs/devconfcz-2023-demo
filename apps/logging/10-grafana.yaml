@@ -174,7 +174,7 @@ spec:
           value: logging-loki-gateway-http.openshift-logging.svc:8080
         - name: GF_SECURITY_ADMIN_USER
           value: kube:admin
-        image: docker.io/grafana/grafana:8.5.6
+        image: docker.io/grafana/grafana:10.0.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -229,7 +229,7 @@ spec:
         - name: HTTP_PROXY
         - name: HTTPS_PROXY
         - name: NO_PROXY
-        image: quay.io/openshift/origin-oauth-proxy:4.13
+        image: quay.io/openshift/origin-oauth-proxy:4.10
         imagePullPolicy: IfNotPresent
         name: grafana-proxy
         ports:
