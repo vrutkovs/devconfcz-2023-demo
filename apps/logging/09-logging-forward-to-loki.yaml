@@ -13,4 +13,6 @@ spec:
     lokistack:
       name: logging-loki
   collection:
-    type: vector
+    logs:
+      type: fluentd
+      fluentd: {}
