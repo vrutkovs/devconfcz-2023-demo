@@ -1,3 +1,4 @@
+---
 apiVersion: logging.openshift.io/v1
 kind: ClusterLogging
 metadata:
@@ -16,3 +17,17 @@ spec:
     logs:
       type: fluentd
       fluentd: {}
+---
+apiVersion: logging.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  pipelines:
+    - name: app-logs
+      inputRefs:
+        - application
+      outputRefs:
+        - default
+      detectMultilineErrors: true
