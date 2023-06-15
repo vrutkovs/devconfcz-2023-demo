@@ -92,7 +92,7 @@ data:
           httpHeaderName1: Authorization
           tlsSkipVerify: true
         secureJsonData:
-          httpHeaderValue1: Bearer sha256~qRGPznie435vASmL66efQFdDfv0D8WqiVKeROi3Ogdw
+          httpHeaderValue1: Bearer sha256~ULJhhiLwJot8m8oYLdNavsAghLpaHCX3Hm4iQ-GMzZE
       - name: Loki (Infrastructure)
         type: loki
         access: proxy
@@ -101,7 +101,7 @@ data:
           httpHeaderName1: Authorization
           tlsSkipVerify: true
         secureJsonData:
-          httpHeaderValue1: Bearer sha256~qRGPznie435vASmL66efQFdDfv0D8WqiVKeROi3Ogdw
+          httpHeaderValue1: Bearer sha256~ULJhhiLwJot8m8oYLdNavsAghLpaHCX3Hm4iQ-GMzZE
       - name: Loki (Audit)
         type: loki
         access: proxy
@@ -110,7 +110,7 @@ data:
           httpHeaderName1: Authorization
           tlsSkipVerify: true
         secureJsonData:
-          httpHeaderValue1: Bearer sha256~qRGPznie435vASmL66efQFdDfv0D8WqiVKeROi3Ogdw
+          httpHeaderValue1: Bearer sha256~ULJhhiLwJot8m8oYLdNavsAghLpaHCX3Hm4iQ-GMzZE
       - name: Prometheus
         type: prometheus
         access: proxy
@@ -119,7 +119,7 @@ data:
           httpHeaderName1: Authorization
           tlsSkipVerify: true
         secureJsonData:
-          httpHeaderValue1: Bearer sha256~qRGPznie435vASmL66efQFdDfv0D8WqiVKeROi3Ogdw
+          httpHeaderValue1: Bearer sha256~ULJhhiLwJot8m8oYLdNavsAghLpaHCX3Hm4iQ-GMzZE
 kind: ConfigMap
 metadata:
   name: grafana-datasources
