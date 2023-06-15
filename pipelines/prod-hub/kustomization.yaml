@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - global-lb.yaml
 - ripper-rbac.yaml
+- custom-route.yaml
