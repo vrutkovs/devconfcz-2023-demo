@@ -5,7 +5,7 @@ metadata:
   name: backend
   namespace: workload
 spec:
-  host: ducks.apps.vrutkovs1.origin-gce.dev.openshift.com
+  host: ducks.apps.vrutkovs-demo.origin-gce.dev.openshift.com
   path: /kill
   to:
     kind: Service
@@ -24,7 +24,7 @@ metadata:
   name: ui
   namespace: workload
 spec:
-  host: ducks.apps.vrutkovs1.origin-gce.dev.openshift.com
+  host: ducks.apps.vrutkovs-demo.origin-gce.dev.openshift.com
   to:
     kind: Service
     name: ui
