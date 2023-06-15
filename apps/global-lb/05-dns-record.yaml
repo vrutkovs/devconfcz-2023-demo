@@ -8,13 +8,13 @@ metadata:
 spec:
   name: devconf-vrutkovs-demo.devcluster.openshift.com
   endpoints:
-  # - clusterName: prodeu
-  #   clusterCredentialRef:
-  #     name: admin-kubeconfig
-  #     namespace: clusters-vrutkovs-prod-eu
-  #   loadBalancerServiceRef:
-  #     name: router-default
-  #     namespace: openshift-ingress
+  - clusterName: prodeu
+    clusterCredentialRef:
+      name: admin-kubeconfig
+      namespace: clusters-vrutkovs-prod-eu
+    loadBalancerServiceRef:
+      name: router-default
+      namespace: openshift-ingress
   - clusterName: produs
     clusterCredentialRef:
       name: admin-kubeconfig
