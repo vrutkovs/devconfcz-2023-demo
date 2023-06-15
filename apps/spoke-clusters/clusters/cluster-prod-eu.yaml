@@ -15,8 +15,6 @@ metadata:
     hypershift.openshift.io/auto-created-for-infra: vrutkovs-prod-eu
 spec:
   fips: false
-  release:
-    image: 'quay.io/openshift-release-dev/ocp-release:4.12.10-x86_64'
   dns:
     baseDomain: devcluster.openshift.com
   controllerAvailabilityPolicy: SingleReplica
