@@ -15,12 +15,12 @@ spec:
       app: cert-manager
   duration: 2160h0m0s # 90d
   renewBefore: 360h0m0s # 15d
-  commonName: '*.apps.vrutkovs1.origin-gce.dev.openshift.com'
+  commonName: '*.apps.vrutkovs-demo.origin-gce.dev.openshift.com'
   usages:
     - server auth
     - client auth
   dnsNames:
-    - '*.apps.vrutkovs1.origin-gce.dev.openshift.com'
+    - '*.apps.vrutkovs-demo.origin-gce.dev.openshift.com'
   issuerRef:
     name: letsencrypt-prod-gcp
     kind: ClusterIssuer

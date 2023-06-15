@@ -6,7 +6,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "5"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  name: devconf-vrutkovs1.devcluster.openshift.com
+  name: devconf-vrutkovs-demo.devcluster.openshift.com
   endpoints:
   # - clusterName: prodeu
   #   clusterCredentialRef:
@@ -36,7 +36,7 @@ spec:
   healthCheck:
     failureThreshold: 3
     httpGet:
-      host: devconf-vrutkovs1.devcluster.openshift.com
+      host: devconf-vrutkovs-demo.devcluster.openshift.com
       path: /
       port: 80
       scheme: HTTP

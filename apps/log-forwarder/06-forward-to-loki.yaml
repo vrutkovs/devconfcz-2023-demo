@@ -10,7 +10,7 @@ spec:
   outputs:
     - name: loki-applications
       type: "loki"
-      url: https://logging-loki-openshift-logging.apps.vrutkovs1.origin-gce.dev.openshift.com/api/logs/v1/application
+      url: https://logging-loki-openshift-logging.apps.vrutkovs-demo.origin-gce.dev.openshift.com/api/logs/v1/application
       secret:
         name: lokistack-gateway-bearer-token
       loki:
