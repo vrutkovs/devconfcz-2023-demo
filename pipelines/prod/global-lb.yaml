@@ -4,7 +4,7 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: global-backend
 spec:
-  host: devconf-vrutkovs-demo.devcluster.openshift.com
+  host: devconf-vrutkovs1.devcluster.openshift.com
   path: /kill
   to:
     kind: Service
@@ -20,7 +20,7 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: global-ui
 spec:
-  host: devconf-vrutkovs-demo.devcluster.openshift.com
+  host: devconf-vrutkovs1.devcluster.openshift.com
   to:
     kind: Service
     name: ui
