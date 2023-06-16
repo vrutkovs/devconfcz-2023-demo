@@ -5,6 +5,7 @@ metadata:
   namespace: global-load-balancer-operator
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   channel: alpha
   installPlanApproval: Automatic

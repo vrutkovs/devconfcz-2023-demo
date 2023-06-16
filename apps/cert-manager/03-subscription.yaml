@@ -3,6 +3,7 @@ kind: Subscription
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
   name: cert-manager
   namespace: cert-manager-operator
 spec:

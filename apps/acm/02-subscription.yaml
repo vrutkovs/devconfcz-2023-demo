@@ -5,6 +5,7 @@ metadata:
   namespace: open-cluster-management
   annotations:
     argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   channel: release-2.7
   installPlanApproval: Automatic
